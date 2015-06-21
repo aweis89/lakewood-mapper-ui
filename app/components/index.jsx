@@ -2,8 +2,8 @@
 /** @jsx React.DOM */
 
 var FilteredList = require('./FilteredList.jsx');
-var map = require('./map.js');
-var React = require('../bower_components/react/react');
+var map = require('./mapComponent.js');
+var React = require('react');
 var $ = require('jquery');
 
 $(document).ready(function() {
