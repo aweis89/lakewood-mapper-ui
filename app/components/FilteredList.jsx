@@ -1,37 +1,36 @@
-'use strict';
-/** @jsx React.DOM */
-var React = require('react');
-var _ = require('underscore');
-var $ = require('jquery');
+//var React = require('react');
+import _ from 'underscore';
+import $ from 'jquery';
+import React from 'react';
+import List from './List.jsx';
+var Config = require('../../config/default.json');
 var RestaurantUrl = 'http://localhost:3000/shuls.json';
 
-module.exports = React.createClass({
+class FilterList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fullList: [],
+      items: []
+    };
+  }
 
-  filterList: function(event) {
+  filterList (event) {
     var updatedList = this.state.fullList;
-    updatedList = updatedList.filter(function(item){
+    updatedList = updatedList.filter((item) => {
       return item.name.toLowerCase().search(
         event.target.value.toLowerCase()) !== -1;
     });
     this.setState({items: updatedList});
-  },
+  }
 
-  componentDidMount: function() {
-    $.get(RestaurantUrl, function(response){
-      if(this.isMounted()) {
-        this.setState({items: response, fullList: response});
-      }
-    }.bind(this));
-  },
+  componentDidMount () {
+    $.get(Config.urls.shuls, (response) => {
+      this.setState({items: response, fullList: response});
+    });
+  }
 
-  getInitialState: function(){
-    return {
-      fullList: [],
-      items: []
-    };
-  },
-
-  render: function(){
+  render () {
     return (
       <div className="filter-list">
         <input type="text" placeholder="Search" onChange={this.filterList}/>
@@ -39,18 +38,6 @@ module.exports = React.createClass({
       </div>
     );
   }
-});
+}
 
-var List = React.createClass({
-  render: function(){
-    return (
-      <ul>
-        {
-          this.props.items.map(function(item) {
-           return <li key={item.id}>{item.name} : {item.id}</li>;
-          })
-        }
-      </ul>
-    );
-  }
-});
+module.exports = FilterList;

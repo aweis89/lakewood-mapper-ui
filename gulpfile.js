@@ -13,6 +13,7 @@ var gulp = require('gulp'),
     reactify = require('reactify'),
     package = require('./package.json'),
     gutil = require('gulp-util'),
+    babelify = require('babelify'),
     reload = browserSync.reload;
 
 /**

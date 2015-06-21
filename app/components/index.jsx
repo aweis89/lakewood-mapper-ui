@@ -1,6 +1,3 @@
-'use strict';
-/** @jsx React.DOM */
-
 var FilteredList = require('./FilteredList.jsx');
 var map = require('./mapComponent.js');
 var React = require('react');
