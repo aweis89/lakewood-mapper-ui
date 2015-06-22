@@ -32,7 +32,7 @@ class FilterList extends React.Component {
   render () {
     return (
       <div className="filter-list">
-        <input type="text" placeholder="Search" onChange={this.filterList}/>
+        <input type="text" placeholder="Search" onChange={this.filterList.bind(this)}/>
         <List items={this.state.items}/>
       </div>
     );
