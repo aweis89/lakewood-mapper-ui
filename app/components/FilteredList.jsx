@@ -4,6 +4,7 @@ import $ from 'jquery';
 import React from 'react';
 import List from './List.jsx';
 import Config from '../../config/default.json';
+import Filters from '../filters/general.js';
 
 class FilterList extends React.Component {
   constructor(props) {
@@ -15,12 +16,10 @@ class FilterList extends React.Component {
   }
 
   filterList (event) {
-    var updatedList = this.state.fullList;
-    updatedList = updatedList.filter((item) => {
-      return item.name.toLowerCase().search(
-        event.target.value.toLowerCase()) !== -1;
-    });
-    this.setState({items: updatedList});
+    var filtered = Filters.search(
+      this.state.fullList, event.target.value
+    );
+    this.setState({items: filtered});
   }
 
   componentDidMount () {
@@ -38,5 +37,6 @@ class FilterList extends React.Component {
     );
   }
 }
+
 export default FilterList;
 
