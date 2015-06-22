@@ -26,8 +26,8 @@ gulp.task('bower', function() {
 /**
  * Cleaning dist/ folder
  */
-.task('clean', function(cb) {
-  del(['dist/**'], cb);
+.task('clean', function() {
+  del(['dist/**']);
 })
 
 /**
@@ -84,6 +84,18 @@ gulp.task('bower', function() {
   .pipe(uglify())
   .pipe(gulp.dest(package.dest.dist));
 })
+.task('s3-sync', function() {
+
+  //backup previous build
+  //date = new Date;
+  //dateStamp = date.toISOString();
+  //run('aws s3 mv s3://lakewood-app/dist s3://lakewood-app/' + dateStamp + ' --recursive').exec();
+  //run('aws s3 mv s3://lakewood-app/index.html s3://lakewood-app/' + dateStamp + ' --recursive').exec();
+
+  //copy new build
+  run('aws s3 cp dist/ s3://lakewood-app/dist --recursive').exec();
+  run('aws s3 cp index.html s3://lakewood-app').exec();
+})
 
 /**
  * Compiling resources and serving application
@@ -101,4 +113,6 @@ gulp.task('bower', function() {
   ], [
    'lint', 'less:min', 'js:min', browserSync.reload
   ]);
-});
+})
+.task('minify', ['bower', 'clean', 'lint', 'less:min', 'js:min'])
+.task('deploy', ['minify', 's3-sync']);
