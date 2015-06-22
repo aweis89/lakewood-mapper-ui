@@ -3,8 +3,7 @@ import _ from 'underscore';
 import $ from 'jquery';
 import React from 'react';
 import List from './List.jsx';
-var Config = require('../../config/default.json');
-var RestaurantUrl = 'http://localhost:3000/shuls.json';
+import Config from '../../config/default.json';
 
 class FilterList extends React.Component {
   constructor(props) {
@@ -39,5 +38,5 @@ class FilterList extends React.Component {
     );
   }
 }
+export default FilterList;
 
-module.exports = FilterList;

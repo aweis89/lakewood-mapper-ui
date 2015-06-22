@@ -1,7 +1,6 @@
-var FilteredList = require('./FilteredList.jsx');
-var map = require('./mapComponent.js');
-var React = require('react');
-var $ = require('jquery');
+import FilteredList from './FilteredList.jsx';
+import map from './mapComponent.js';
+import React from 'react';
 
 $(document).ready(function() {
   React.render(<FilteredList />, document.getElementById('content'));
