@@ -7,7 +7,7 @@ import Config from '../../config/default.json';
 import Filters from '../filters/general.js';
 
 class FilterList extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       fullList: [],
@@ -31,8 +31,8 @@ class FilterList extends React.Component {
   render () {
     return (
       <div className="filter-list">
-        <input type="text" placeholder="Search" onChange={this.filterList.bind(this)}/>
-        <List items={this.state.items}/>
+        <input type="text" placeholder="Search" onChange={ this.filterList.bind(this) }/>
+        <List items={ this.state.items }/>
       </div>
     );
   }

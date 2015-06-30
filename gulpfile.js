@@ -27,7 +27,7 @@ gulp.task('bower', function() {
  * Cleaning dist/ folder
  */
 .task('clean', function() {
-  del(['dist/**']);
+  run('rm -rf dist/').exec();
 })
 
 /**
@@ -91,8 +91,9 @@ gulp.task('bower', function() {
   //dateStamp = date.toISOString();
   //run('aws s3 mv s3://lakewood-app/dist s3://lakewood-app/' + dateStamp + ' --recursive').exec();
   //run('aws s3 mv s3://lakewood-app/index.html s3://lakewood-app/' + dateStamp + ' --recursive').exec();
-
   //copy new build
+  
+  run('aws s3 rm s3://lakewood-app/ --recursive').exec();
   run('aws s3 cp dist/ s3://lakewood-app/dist --recursive').exec();
   run('aws s3 cp index.html s3://lakewood-app').exec();
 })
