@@ -12,7 +12,7 @@ $(document).ready(function() {
 
       new ol.layer.Tile({
         source: new ol.source.Stamen({
-          layer: 'terrain-labels'
+          layer: 'terrain'
         })
       })
     ],

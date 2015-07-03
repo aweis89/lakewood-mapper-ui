@@ -4,7 +4,6 @@
 require('./components/index.jsx');
 
 },{"./components/index.jsx":4}],2:[function(require,module,exports){
-//var React = require('react');
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -177,7 +176,7 @@ $(document).ready(function () {
       })
     }), new ol.layer.Tile({
       source: new ol.source.Stamen({
-        layer: 'terrain-labels'
+        layer: 'terrain'
       })
     })],
 

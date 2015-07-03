@@ -1,4 +1,3 @@
-//var React = require('react');
 import _ from 'underscore';
 import $ from 'jquery';
 import React from 'react';
