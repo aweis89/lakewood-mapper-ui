@@ -30,8 +30,8 @@ $(document).ready(function() {
         'EPSG:4326',
         'EPSG:3857'
       ),
-      zoom: 10,
-      minZoom: 15
+      zoom: 14,
+      minZoom: 13
     })
 
   });
