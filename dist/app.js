@@ -191,8 +191,8 @@ $(document).ready(function () {
 
     view: new ol.View({
       center: ol.proj.transform([-74.2218196, 40.0957316], 'EPSG:4326', 'EPSG:3857'),
-      zoom: 12,
-      minZoom: 10
+      zoom: 10,
+      minZoom: 15
     })
 
   });
