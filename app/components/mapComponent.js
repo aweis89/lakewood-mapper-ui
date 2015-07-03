@@ -1,3 +1,5 @@
+import _ from 'underscore';
+
 $(document).ready(function() {
   window.map = new ol.Map({
 
@@ -36,16 +38,21 @@ $(document).ready(function() {
 });
 
 window.Marker = {
-  add: function (address) {
-    var lon = address.longitude;
-    var lat = address.latitude;
-    var feature = new ol.Feature({
-      name: address.name,
-      geometry: new ol.geom.Point(ol.proj.transform([Number(lon), Number(lat)], 'EPSG:4326', 'EPSG:3857'))
-    });
+  add: function (addresses) {
+    var features = [];
+    for(var i = 0; i < addresses.length; i++) {
+      var address = addresses[i];
+      var lon = address.longitude;
+      var lat = address.latitude;
+      var feature = new ol.Feature({
+        name: address.name,
+        geometry: new ol.geom.Point(ol.proj.transform([Number(lon), Number(lat)], 'EPSG:4326', 'EPSG:3857'))
+      });
+     features.push(feature);
+    }
 
     var vectorSource = new ol.source.Vector({
-      features: [feature]
+      features: features
     });
     var iconStyle = new ol.style.Style({
       image: new ol.style.Icon({
@@ -60,6 +67,7 @@ window.Marker = {
       style: iconStyle
     });
     window.map.addLayer(vectorLayer);
+    return vectorLayer;
   }
 };
 

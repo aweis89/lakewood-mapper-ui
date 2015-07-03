@@ -2,16 +2,14 @@ import React from 'react';
 
 export default class List extends React.Component {
 
-  componentDidMount () {
-    this.props.items.map(function(item) {
-      window.Marker.add(item);
-    });
+  constructor (props) {
+    super(props);
+    this.state = {};
   }
 
   componentDidUpdate () {
-    this.props.items.map(function(item) {
-      window.Marker.add(item);
-    });
+    window.map.removeLayer(this.state.markers);
+    this.state.markers = window.Marker.add(this.props.items);
   }
 
   render () {
