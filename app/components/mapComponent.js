@@ -4,52 +4,15 @@ var MarkerImageUrl = "http://www.clker.com/cliparts/N/a/G/A/e/V/map-marker-th.pn
 var ol = window.ol;
 var map = window.map;
 
-$(document).ready(function() {
-  window.map = new ol.Map({
-
-    layers: [
-      new ol.layer.Tile({
-        source: new ol.source.Stamen({
-          layer: 'watercolor'
-        })
-      }),
-
-      new ol.layer.Tile({
-        source: new ol.source.Stamen({
-          layer: 'terrain'
-        })
-      })
-    ],
-
-    target: 'map',
-    controls: ol.control.defaults({
-      attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-        collapsible: false
-      })
-    }),
-
-    view: new ol.View({
-      center: ol.proj.transform(
-        [-74.2218196, 40.0957316],
-        'EPSG:4326',
-        'EPSG:3857'
-      ),
-      zoom: 14,
-      minZoom: 13
-    })
-
-  });
-});
-
 window.Marker = {
   addElement: function (address) {
       var lon = address.longitude;
       var lat = address.latitude;
       var pos = ol.proj.transform([Number(lon), Number(lat)], 'EPSG:4326', 'EPSG:3857');
-      var pin = document.createElement('div');
-      pin.className = 'pin';
-      var pulse = document.createElement('pulse');
-      pulse.className = 'pulse';
+      
+      var pin = $("<a>", {class: 'pin'}).attr("data-toggle", "dropdown").attr("data-trigger", "focus").attr("data-content", "This shouls be the pupups content");
+      var pulse = $("<div>", {class: 'pulse'});
+      var popupElem = $("<div>");
       var marker = new ol.Overlay({
         position: pos,
         positioning: 'center-center',
@@ -62,8 +25,17 @@ window.Marker = {
         element: pulse,
         stopEvent: false
       });
+      var popupMarker = new ol.Overlay({
+        position: pos,
+        positioning: 'top',
+        element: popupElem,
+        stopEvent: false
+      });
+
       window.map.addOverlay(marker);
       window.map.addOverlay(pulseMarker);
+      window.map.addOverlay(popupMarker);
+      
   },
 
   add: function (addresses) {
