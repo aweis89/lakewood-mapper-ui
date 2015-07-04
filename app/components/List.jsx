@@ -7,9 +7,18 @@ export default class List extends React.Component {
     this.state = {};
   }
 
+  //componentDidMount () {
+    //this.props.items.map(function(item) {
+      //window.Marker.addElement(item);
+    //});
+  //}
+
   componentDidUpdate () {
-    window.map.removeLayer(this.state.markers);
-    this.state.markers = window.Marker.add(this.props.items);
+    //window.map.removeLayer(this.state.markers);
+    //this.state.markers = window.Marker.add(this.props.items);
+    this.props.items.map(function(item) {
+      window.Marker.addElement(item);
+    });
   }
 
   render () {

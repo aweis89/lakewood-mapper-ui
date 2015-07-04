@@ -93,9 +93,11 @@ gulp.task('bower', function() {
   //run('aws s3 mv s3://lakewood-app/index.html s3://lakewood-app/' + dateStamp + ' --recursive').exec();
   //copy new build
   
-  run('aws s3 rm s3://lakewood-app/ --recursive').exec();
-  run('aws s3 cp dist/ s3://lakewood-app/dist --recursive').exec();
-  run('aws s3 cp index.html s3://lakewood-app').exec();
+  run(
+    "aws s3 rm s3://lakewood-app/ --recursive; \
+     aws s3 cp dist/ s3://lakewood-app/dist --recursive; \
+     aws s3 cp index.html s3://lakewood-app"
+  ).exec();
 })
 
 /**

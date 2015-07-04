@@ -1,4 +1,8 @@
 import _ from 'underscore';
+import $ from 'jquery';
+var MarkerImageUrl = "http://www.clker.com/cliparts/N/a/G/A/e/V/map-marker-th.png";
+var ol = window.ol;
+var map = window.map;
 
 $(document).ready(function() {
   window.map = new ol.Map({
@@ -38,6 +42,30 @@ $(document).ready(function() {
 });
 
 window.Marker = {
+  addElement: function (address) {
+      var lon = address.longitude;
+      var lat = address.latitude;
+      var pos = ol.proj.transform([Number(lon), Number(lat)], 'EPSG:4326', 'EPSG:3857');
+      var pin = document.createElement('div');
+      pin.className = 'pin';
+      var pulse = document.createElement('pulse');
+      pulse.className = 'pulse';
+      var marker = new ol.Overlay({
+        position: pos,
+        positioning: 'center-center',
+        element: pin,
+        stopEvent: false
+      });
+      var pulseMarker = new ol.Overlay({
+        position: pos,
+        positioning: 'center-center',
+        element: pulse,
+        stopEvent: false
+      });
+      window.map.addOverlay(marker);
+      window.map.addOverlay(pulseMarker);
+  },
+
   add: function (addresses) {
     var features = [];
     for(var i = 0; i < addresses.length; i++) {
@@ -60,7 +88,8 @@ window.Marker = {
         anchorXUnits: 'fraction',
         anchorYUnits: 'pixels',
         opacity: 0.75,
-        src: 'http://ol3js.org/en/master/examples/data/icon.png'})
+        src: MarkerImageUrl
+      })
     });
     var vectorLayer = new ol.layer.Vector({
       source: vectorSource,

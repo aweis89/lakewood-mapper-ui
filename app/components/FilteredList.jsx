@@ -14,7 +14,14 @@ class FilterList extends React.Component {
     };
   }
 
+  removeMarkers () {
+    window.map.getOverlays().getArray().slice(0).forEach(function(overlay) {
+      window.map.removeOverlay(overlay);
+    });
+  }
+
   filterList (event) {
+    this.removeMarkers();
     var filtered = Filters.search(
       this.state.fullList, event.target.value
     );
