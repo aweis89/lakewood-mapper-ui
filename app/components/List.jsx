@@ -1,5 +1,6 @@
 import React from 'react';
-import $ from 'jquery';
+import _ from 'underscore';
+//import $ from 'jquery';
 
 export default class List extends React.Component {
 
@@ -15,32 +16,85 @@ export default class List extends React.Component {
   //}
   //
 
+  getTime (item) {
+    var r;
+    if(item) {
+      r = item.time;
+    } else {
+      r = "";
+    }
+    return r;
+  }
+
+  addMarkers () {
+    var item = this.props.item;
+
+    $(item.pin).click( ()=> {
+      this.showPopup().bind(this);
+    });
+
+    window.Marker.addMarker(item, item.pin);
+    window.Marker.addMarker(item, item.pulse);
+  }
+
+  componentDidUpdate () {
+    this.addMarkers();
+  }
+
+  componentDidMount () {
+    this.addMarkers();
+  }
+
+  popupContent () {
+    var shachrises = this.props.item.shachrises;
+    var minchas = this.props.item.minchas;
+    var marives = this.props.item.marives;
+    var header = "<tr><th>Shachris</th><th>Mincha</th><th>Marive</th></tr>";
+    var rows = [];
+    for(var i = 0; (i < shachrises.length) || (i < minchas.length) || (i < marives.length); i++) {
+      var shachrisTime = this.getTime(shachrises[i]);
+      var minchaTime = this.getTime(minchas[i]);
+      var mariveTime = this.getTime(marives[i]);
+      var row = "<tr><td>" + shachrisTime + "</td><td>" + minchaTime + "</td><td>" + mariveTime + "</td></tr>";
+      rows.push(row);
+    }
+
+    //return "<table class='table'>" + header + shachrisTimes.join("") + minchaTimes.join("") + mariveTimes.join(" ") + "</table>";
+    return "<table class='table'>" + header + rows.join("") + "</table>";
+  }
+
   popupElem () {
     var name = this.props.item.name;
-      var container = $("<div>", {id: "popup", class: "ol-popup"});
-      var closer = $("<a>", {class: "ol-popup-closer", id: "popup-closer", text: name, href: "#"});
-      var content = $("<div>", {class: "popover-content", text: name});
-      container.append(closer);
-      container.append(content);
-      return container;
+    var content = $("<div>", {class: "popup-content", title: name});
+    return content;
   }
 
   showPopup (event) {
+    $(".popover").remove();
     var popupElem = this.popupElem();
-    var offset = [0, -20];
+    var offset = [-5, -22];
     var positioning = 'top-center';
+    var content = this.getContent;
     window.Marker.addMarker(
+   
       this.props.item,
       popupElem,
       positioning,
       offset
     );
+    $(popupElem).popover({
+      'placement': 'top',
+      'animation': false,
+      'html': true,
+      'content': this.popupContent()
+    });
+    $(popupElem).popover('show');
   }
 
   render () {
     var item = this.props.item;
     return (
-      <li onClick={this.showPopup.bind(this)} key={item.id} >
+      <li className='shul' onClick={this.showPopup.bind(this)} key={item.id} >
         {item.name}
       </li>
     );

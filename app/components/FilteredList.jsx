@@ -14,17 +14,23 @@ class FilterList extends React.Component {
     };
   }
 
+  genPinElem() {
+    return $("<a>", {class: 'pin'})
+    .attr("data-toggle", "dropdown")
+    .attr("data-trigger", "focus")
+    .attr("data-content", "This shouls be the pupups content");
+  }
+
+  genPulseElem () {
+    return $("<div>", {class: 'pulse'});
+  }
+
   removeMarkers () {
     window.map.getOverlays().getArray().slice(0).forEach(function(overlay) {
       window.map.removeOverlay(overlay);
     });
   }
 
-  componentDidUpdate () {
-    this.state.items.map(function(item) {
-      window.Marker.addMarkers(item);
-    });
-  }
 
   filterList (event) {
     this.removeMarkers();
@@ -35,8 +41,12 @@ class FilterList extends React.Component {
   }
 
   componentDidMount () {
-    $.get(Config.urls.shuls, (response) => {
-      this.setState({items: response, fullList: response});
+    $.get(Config.urls.shuls, (items) => {
+      _.each(items, (item) => {
+        item.pin = this.genPinElem();
+        item.pulse = this.genPulseElem();
+      });
+      this.setState({items: items, fullList: items});
     });
   }
 
