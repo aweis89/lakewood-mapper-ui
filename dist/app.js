@@ -16,10 +16,6 @@ var ol = window.ol;
 
     layers: [new ol.layer.Tile({
       source: new ol.source.Stamen({
-        layer: 'watercolor'
-      })
-    }), new ol.layer.Tile({
-      source: new ol.source.Stamen({
         layer: 'terrain'
       })
     })],
