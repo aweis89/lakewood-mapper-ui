@@ -5,38 +5,38 @@ var ol = window.ol;
 var map = window.map;
 
 window.Marker = {
-  addElement: function (address) {
-      var lon = address.longitude;
-      var lat = address.latitude;
-      var pos = ol.proj.transform([Number(lon), Number(lat)], 'EPSG:4326', 'EPSG:3857');
-      
-      var pin = $("<a>", {class: 'pin'}).attr("data-toggle", "dropdown").attr("data-trigger", "focus").attr("data-content", "This shouls be the pupups content");
-      var pulse = $("<div>", {class: 'pulse'});
-      var popupElem = $("<div>");
-      var marker = new ol.Overlay({
-        position: pos,
-        positioning: 'center-center',
-        element: pin,
-        stopEvent: false
-      });
-      var pulseMarker = new ol.Overlay({
-        position: pos,
-        positioning: 'center-center',
-        element: pulse,
-        stopEvent: false
-      });
-      var popupMarker = new ol.Overlay({
-        position: pos,
-        positioning: 'top',
-        element: popupElem,
-        stopEvent: false
-      });
 
-      window.map.addOverlay(marker);
-      window.map.addOverlay(pulseMarker);
-      window.map.addOverlay(popupMarker);
-      
+  addMarker: function(address, element, positioning, offset) {
+    var lon = address.longitude;
+    var lat = address.latitude;
+    var pos = ol.proj.transform([Number(lon), Number(lat)], 'EPSG:4326', 'EPSG:3857');
+    if(positioning === undefined) {
+      positioning = 'center-center';
+    }
+    var overlay = new ol.Overlay({
+      position: pos,
+      positioning: positioning,
+      element: element,
+      stopEvent: false,
+      offset: offset
+    });
+    window.map.addOverlay(overlay);
   },
+
+  addMarkers: function (address) {
+
+      var pinElement = $("<a>", {class: 'pin'}).attr("data-toggle", "dropdown").attr("data-trigger", "focus").attr("data-content", "This shouls be the pupups content");
+      var pulseElement = $("<div>", {class: 'pulse'});
+      //var popupElem = $("<div>", {class: "popover"}).append(
+        //$("<p>", {class: "popover-title", text: "This Header"})
+      //).append(
+      //$("<div>", {class: "popover-content", text: "This is body"})
+      //);
+      //var popupElem = document.getElementById("popup");
+      window.Marker.addMarker(address, pinElement);
+      window.Marker.addMarker(address, pulseElement);
+  },
+
 
   add: function (addresses) {
     var features = [];

@@ -20,6 +20,12 @@ class FilterList extends React.Component {
     });
   }
 
+  componentDidUpdate () {
+    this.state.items.map(function(item) {
+      window.Marker.addMarkers(item);
+    });
+  }
+
   filterList (event) {
     this.removeMarkers();
     var filtered = Filters.search(
@@ -38,7 +44,15 @@ class FilterList extends React.Component {
     return (
       <div className="filter-list">
         <input type="text" placeholder="Search" onChange={ this.filterList.bind(this) }/>
-        <List items={ this.state.items }/>
+        <ul>
+        {
+          this.state.items.map(function(item) {
+          return (
+            <List key={item.id} item={ item } />
+            );
+          })
+        }
+      </ul>
       </div>
     );
   }
