@@ -207,7 +207,7 @@ var List = (function (_React$Component) {
       var item = this.props.item;
 
       $(item.pin).click(function () {
-        _this.showPopup().bind(_this);
+        _this.showPopup();
       });
 
       window.Marker.addMarker(item, item.pin);
@@ -267,10 +267,21 @@ var List = (function (_React$Component) {
       $(popupElem).popover('show');
     }
   }, {
+    key: 'centerMap',
+    value: function centerMap() {
+      window.Marker.center(this);
+    }
+  }, {
+    key: 'handleClick',
+    value: function handleClick() {
+      this.showPopup();
+      //window.Marker.center(this);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var item = this.props.item;
-      return _react2['default'].createElement('li', { className: 'shul', onClick: this.showPopup.bind(this), key: item.id }, item.name);
+      return _react2['default'].createElement('li', { className: 'shul', onClick: this.handleClick.bind(this), key: item.id }, item.name);
     }
   }]);
 
@@ -344,6 +355,13 @@ window.Marker = {
     var pulseElement = (0, _jquery2['default'])('<div>', { 'class': 'pulse' });
     window.Marker.addMarker(address, pinElement);
     window.Marker.addMarker(address, pulseElement);
+  },
+
+  center: function center(address) {
+    var lon = address.longitude;
+    var lat = address.latitude;
+    window.map.getView().setCenter(ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857'));
+    window.map.getView().setZoom(5);
   },
 
   add: function add(addresses) {

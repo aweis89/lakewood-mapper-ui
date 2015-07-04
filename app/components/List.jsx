@@ -30,7 +30,7 @@ export default class List extends React.Component {
     var item = this.props.item;
 
     $(item.pin).click( ()=> {
-      this.showPopup().bind(this);
+      this.showPopup();
     });
 
     window.Marker.addMarker(item, item.pin);
@@ -91,10 +91,19 @@ export default class List extends React.Component {
     $(popupElem).popover('show');
   }
 
+  centerMap () {
+    window.Marker.center(this);
+  }
+
+  handleClick() {
+    this.showPopup();
+    //window.Marker.center(this);
+  }
+
   render () {
     var item = this.props.item;
     return (
-      <li className='shul' onClick={this.showPopup.bind(this)} key={item.id} >
+      <li className='shul' onClick={this.handleClick.bind(this)} key={item.id} >
         {item.name}
       </li>
     );

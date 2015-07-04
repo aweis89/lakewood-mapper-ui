@@ -32,6 +32,12 @@ window.Marker = {
       window.Marker.addMarker(address, pulseElement);
   },
 
+  center: function (address) {
+    var lon = address.longitude;
+    var lat = address.latitude;
+    window.map.getView().setCenter(ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857'));
+    window.map.getView().setZoom(5);
+  },
 
   add: function (addresses) {
     var features = [];
