@@ -1,7 +1,7 @@
 { 
   "urls": {
-    //"shuls": "http://d2unn5wfrpuqwh.cloudfront.net"
-    "shuls": "http://fathomless-oasis-4352.herokuapp.com/shuls.json"
+    "shuls": "http://d2unn5wfrpuqwh.cloudfront.net"
+    //"shuls": "http://fathomless-oasis-4352.herokuapp.com/shuls.json"
   }
 }
 

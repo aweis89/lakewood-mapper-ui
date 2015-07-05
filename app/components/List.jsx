@@ -49,7 +49,7 @@ export default class List extends React.Component {
     var shachrises = this.props.item.shachrises;
     var minchas = this.props.item.minchas;
     var marives = this.props.item.marives;
-    var header = "<tr><th>Shachris</th><th>Mincha</th><th>Marive</th></tr>";
+    var header = "<tr><td>Shachris</td><td>Mincha</td><td>Marive</td></tr>";
     var rows = [];
     for(var i = 0; (i < shachrises.length) || (i < minchas.length) || (i < marives.length); i++) {
       var shachrisTime = this.getTime(shachrises[i]);
