@@ -42,9 +42,11 @@
     "dist": "dist"
   },
   "browser": {
+    "bootstrap": "./bower_components/bootstrap/dist/js/bootstrap.min.js",
     "jquery": "./bower_components/jquery/dist/jquery.js",
     "react": "./bower_components/react/react.js",
-    "underscore": "./bower_components/lodash/lodash.js"
+    "underscore": "./bower_components/lodash/lodash.js",
+    "enhanced_date": "./bower_components/datejs/build/date.js"
   },
   "browserify-shim": {
     "jquery": "$",

@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
-//import $ from 'jquery';
+import $ from 'jquery';
+import '../../bower_components/bootstrap/dist/js/bootstrap.js';
 
 export default class List extends React.Component {
 
@@ -9,17 +10,13 @@ export default class List extends React.Component {
     this.state = {};
   }
 
-  //componentDidMount () {
-    //this.props.items.map(function(item) {
-      //window.Marker.addElement(item);
-    //});
-  //}
-  //
-
   getTime (item) {
     var r;
     if(item) {
-      r = item.time;
+      r = Date.today().at({
+        hour: Number(item.hour),
+        minute: Number(item.minute)
+      }).toString("h:mm tt");
     } else {
       r = "";
     }
@@ -76,7 +73,6 @@ export default class List extends React.Component {
     var positioning = 'top-center';
     var content = this.getContent;
     window.Marker.addMarker(
-   
       this.props.item,
       popupElem,
       positioning,
