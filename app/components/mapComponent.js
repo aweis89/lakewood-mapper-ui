@@ -35,8 +35,17 @@ window.Marker = {
   center: function (address) {
     var lon = address.longitude;
     var lat = address.latitude;
-    window.map.getView().setCenter(ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857'));
-    window.map.getView().setZoom(5);
+    var view = window.map.getView();
+    var elastic = function(t) {
+      return Math.pow(2, -10 * t) * Math.sin((t - 0.075) * (2 * Math.PI) / 0.3) + 1;
+    };
+    var pan = ol.animation.pan({
+      duration: 1000,
+      source: /** @type {ol.Coordinate} */ (view.getCenter())
+    });
+    window.map.beforeRender(pan);
+    view.setCenter(ol.proj.transform([Number(lon), Number(lat)], 'EPSG:4326', 'EPSG:3857'));
+    //window.map.getView().setZoom(17);
   },
 
   add: function (addresses) {

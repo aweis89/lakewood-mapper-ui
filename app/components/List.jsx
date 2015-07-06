@@ -27,7 +27,7 @@ export default class List extends React.Component {
     var item = this.props.item;
 
     $(item.pin).on('click', (event)=> {
-      this.showPopup();
+      this.handleClick();
       event.stopPropagation();
     });
 
@@ -91,13 +91,9 @@ export default class List extends React.Component {
     $(popupElem).popover('show');
   }
 
-  centerMap () {
-    window.Marker.center(this);
-  }
-
   handleClick() {
+    window.Marker.center(this.props.item);
     this.showPopup();
-    //window.Marker.center(this);
   }
 
   render () {
