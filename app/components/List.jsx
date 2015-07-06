@@ -92,8 +92,10 @@ export default class List extends React.Component {
   }
 
   handleClick() {
-    window.Marker.center(this.props.item);
-    this.showPopup();
+    window.Marker.center(
+      this.props.item,
+      this.showPopup.bind(this)
+    );
   }
 
   render () {

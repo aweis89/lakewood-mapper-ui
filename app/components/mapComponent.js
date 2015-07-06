@@ -2,7 +2,6 @@ import _ from 'underscore';
 import $ from 'jquery';
 var MarkerImageUrl = "http://www.clker.com/cliparts/N/a/G/A/e/V/map-marker-th.png";
 var ol = window.ol;
-var map = window.map;
 
 window.Marker = {
 
@@ -32,20 +31,25 @@ window.Marker = {
       window.Marker.addMarker(address, pulseElement);
   },
 
-  center: function (address) {
+  center: function (address, callback) {
+    var map = window.map;
     var lon = address.longitude;
     var lat = address.latitude;
     var view = window.map.getView();
-    var elastic = function(t) {
-      return Math.pow(2, -10 * t) * Math.sin((t - 0.075) * (2 * Math.PI) / 0.3) + 1;
-    };
     var pan = ol.animation.pan({
       duration: 1000,
       source: /** @type {ol.Coordinate} */ (view.getCenter())
     });
-    window.map.beforeRender(pan);
+    map.beforeRender(function(mapParam, frameState) {
+      var stillAnimating = pan(mapParam, frameState);
+      if (!stillAnimating) {
+        callback();
+      }
+      return stillAnimating;
+    });
+    //window.map.on('postrender', callback);
     view.setCenter(ol.proj.transform([Number(lon), Number(lat)], 'EPSG:4326', 'EPSG:3857'));
-    //window.map.getView().setZoom(17);
+    view.setZoom(17);
   },
 
   add: function (addresses) {
