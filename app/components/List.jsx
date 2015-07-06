@@ -26,8 +26,9 @@ export default class List extends React.Component {
   addMarkers () {
     var item = this.props.item;
 
-    $(item.pin).click( ()=> {
+    $(item.pin).on('click', (event)=> {
       this.showPopup();
+      event.stopPropagation();
     });
 
     window.Marker.addMarker(item, item.pin);
@@ -40,6 +41,9 @@ export default class List extends React.Component {
 
   componentDidMount () {
     this.addMarkers();
+    $("#map").on('click', (e) => {
+      $(".popover").remove();
+    });
   }
 
   popupContent () {

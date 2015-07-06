@@ -46,6 +46,9 @@ class FilterList extends React.Component {
         item.pin = this.genPinElem();
         item.pulse = this.genPulseElem();
       });
+      $("#map").on('click', (e) => {
+        $(".popover").remove();
+      });
       this.setState({items: items, fullList: items});
     });
   }
