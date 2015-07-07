@@ -15,12 +15,16 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js'></script>
   </head>
   <body>
-    <div id="container">
-      <div id="content"> </div>
-      <div id="map"></div>
-    </div>
+    <div class="container-fluid">
+
+      <div id="container">
+        <div id="content"> </div>
+        <div id="map">
+          <select id="layer-select">
+            <option value="Road" selected>Roads</option>
+            <option value="AerialWithLabels">Satelite</option>
+          </select>
+        </div>
+      </div>
   </body>
-  <style>
-.ol-popup-closer:after { content: " | X"; }
-  </style>
 </html>
