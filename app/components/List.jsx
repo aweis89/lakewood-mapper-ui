@@ -32,7 +32,6 @@ export default class List extends React.Component {
     });
 
     window.Marker.addMarker(item, item.pin);
-    window.Marker.addMarker(item, item.pulse);
   }
 
   componentDidUpdate () {
@@ -56,12 +55,15 @@ export default class List extends React.Component {
       var shachrisTime = this.getTime(shachrises[i]);
       var minchaTime = this.getTime(minchas[i]);
       var mariveTime = this.getTime(marives[i]);
-      var row = "<tr><td>" + shachrisTime + "</td><td>" + minchaTime + "</td><td>" + mariveTime + "</td></tr>";
+      var row = `<tr>
+      <td> ${shachrisTime} </td>
+      <td> ${minchaTime} </td>
+      <td> ${mariveTime} </td>
+      </tr>`;
       rows.push(row);
     }
 
-    //return "<table class='table'>" + header + shachrisTimes.join("") + minchaTimes.join("") + mariveTimes.join(" ") + "</table>";
-    return "<table class='table'>" + header + rows.join("") + "</table>";
+    return `<table class="table"> ${header} ${rows.join("")} </table>`;
   }
 
   popupElem () {
@@ -92,6 +94,8 @@ export default class List extends React.Component {
   }
 
   handleClick() {
+    $(".pulse").remove();
+    window.Marker.addMarker(this.props.item, this.props.item.pulse);
     window.Marker.center(
       this.props.item,
       this.showPopup.bind(this)
