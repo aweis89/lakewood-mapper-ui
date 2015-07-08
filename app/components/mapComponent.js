@@ -42,9 +42,7 @@ window.Marker = {
     });
     map.beforeRender(function(mapParam, frameState) {
       var stillAnimating = pan(mapParam, frameState);
-      if (!stillAnimating) {
-        callback();
-      }
+      callback();
       return stillAnimating;
     });
     //window.map.on('postrender', callback);
