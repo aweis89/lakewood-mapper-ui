@@ -41,8 +41,12 @@ export default class List extends React.Component {
     });
   }
 
-  handleClick(e) {
-    this.showPopup(e);
+  handleClick (e) {
+    var marker = this.props.item.marker;
+    window.markerCluster.zoomToShowLayer(marker, function() {
+      marker.openPopup();
+    });
+    //this.showPopup(e);
     this.scrollTop(e);
   }
 
