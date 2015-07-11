@@ -2,29 +2,31 @@
 <html>
   <head>
     <title>Torah City</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.5.0/ol.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.5.0/ol-debug.js"></script>-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.5.0/ol.css" type="text/css">
-    <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+ <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+
     <script type="text/javascript" src="dist/app.js"></script>
     <link rel="stylesheet" href="dist/style.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js'></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.rawgit.com/CliffCloud/Leaflet.EasyButton/f3f3136bda3937aa813c80a1a6c8c921c6df06ed/src/easy-button.css" />
+    <script src="https://cdn.rawgit.com/CliffCloud/Leaflet.EasyButton/f3f3136bda3937aa813c80a1a6c8c921c6df06ed/src/easy-button.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js'></script>
+
   </head>
   <body>
     <div class="container-fluid">
 
       <div id="container">
         <div id="content"> </div>
-        <div id="map">
-          <select id="layer-select">
-            <option value="Road" selected>Roads</option>
-            <option value="AerialWithLabels">Satelite</option>
-          </select>
-        </div>
+        <div id="map"></div>
       </div>
   </body>
 </html>

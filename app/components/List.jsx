@@ -10,60 +10,17 @@ export default class List extends React.Component {
     this.state = {};
   }
 
-  getTime (item) {
-    var r;
-    if(item) {
-      r = Date.today().at({
-        hour: Number(item.hour),
-        minute: Number(item.minute)
-      }).toString("h:mm tt");
-    } else {
-      r = "";
-    }
-    return r;
-  }
-
-  addMarkers () {
+  addMarker () {
     var item = this.props.item;
-
-    $(item.pin).on('click', (event)=> {
-      this.handleClick();
-      event.stopPropagation();
-    });
-
-    window.Marker.addMarker(item, item.pin);
+    var marker = item.marker.addTo(window.map);
   }
 
   componentDidUpdate () {
-    this.addMarkers();
+    //this.addMarker();
   }
 
   componentDidMount () {
-    this.addMarkers();
-    $("#map").on('click', (e) => {
-      $(".popover").remove();
-    });
-  }
-
-  popupContent () {
-    var shachrises = this.props.item.shachrises;
-    var minchas = this.props.item.minchas;
-    var marives = this.props.item.marives;
-    var header = "<tr><td>Shachris</td><td>Mincha</td><td>Marive</td></tr>";
-    var rows = [];
-    for(var i = 0; (i < shachrises.length) || (i < minchas.length) || (i < marives.length); i++) {
-      var shachrisTime = this.getTime(shachrises[i]);
-      var minchaTime = this.getTime(minchas[i]);
-      var mariveTime = this.getTime(marives[i]);
-      var row = `<tr>
-      <td> ${shachrisTime} </td>
-      <td> ${minchaTime} </td>
-      <td> ${mariveTime} </td>
-      </tr>`;
-      rows.push(row);
-    }
-
-    return `<table class="table"> ${header} ${rows.join("")} </table>`;
+    //this.addMarker();
   }
 
   popupElem () {
@@ -73,39 +30,26 @@ export default class List extends React.Component {
   }
 
   showPopup (event) {
-    $(".popover").remove();
-    var popupElem = this.popupElem();
-    var offset = [-5, -22];
-    var positioning = 'top-center';
-    var content = this.getContent;
-    window.Marker.addMarker(
-      this.props.item,
-      popupElem,
-      positioning,
-      offset
-    );
-    $(popupElem).popover({
-      'placement': 'top',
-      'animation': false,
-      'html': true,
-      'content': this.popupContent()
-    });
-    $(popupElem).popover('show');
+    this.props.item.marker.openPopup();
   }
 
-  handleClick() {
-    $(".pulse").remove();
-    window.Marker.addMarker(this.props.item, this.props.item.pulse);
-    window.Marker.center(
-      this.props.item,
-      this.showPopup.bind(this)
-    );
+  scrollTop (e) {
+    var $box_parent = $(e.target).parent();
+    var top_offset = $box_parent.position().top;
+    $box_parent.parent().animate({
+      'margin-top': 0 - top_offset
+    });
+  }
+
+  handleClick(e) {
+    this.showPopup(e);
+    this.scrollTop(e);
   }
 
   render () {
     var item = this.props.item;
     return (
-      <li className='shul' onClick={this.handleClick.bind(this)} key={item.id} >
+      <li className='shul' id={item.id} onClick={this.handleClick.bind(this)} key={item.id} >
         {item.name}
       </li>
     );

@@ -4,6 +4,7 @@ import React from 'react';
 import List from './List.jsx';
 import Config from '../../config/default.json';
 import Filters from '../filters/general.js';
+import shulStore from '../stores/shulStore.js';
 
 class FilterList extends React.Component {
   constructor (props) {
@@ -14,11 +15,8 @@ class FilterList extends React.Component {
     };
   }
 
-  genPinElem() {
-    return $("<a>", {class: 'pin'})
-    .attr("data-toggle", "dropdown")
-    .attr("data-trigger", "focus")
-    .attr("data-content", "This shouls be the pupups content");
+  genMarker(item) {
+    return window.L.marker([item.latitude, item.longitude]);
   }
 
   genPulseElem () {
@@ -26,31 +24,36 @@ class FilterList extends React.Component {
   }
 
   removeMarkers () {
-    window.map.getOverlays().getArray().slice(0).forEach(function(overlay) {
-      window.map.removeOverlay(overlay);
-    });
+    //window.map.removeLayer(window.markerCluster);
   }
 
+  addMarkers () {
+    window.markerCluster.clearLayers();
+    var _this = this;
+    this.state.items.map(function(item) {
+      window.markerCluster.addLayer(item.marker);
+    });
+    window.map.addLayer(window.markerCluster);
+  }
 
   filterList (event) {
-    this.removeMarkers();
     var filtered = Filters.search(
       this.state.fullList, event.target.value
     );
     this.setState({items: filtered});
   }
 
+  componentDidUpdate () {
+    this.removeMarkers();
+    this.addMarkers();
+  }
+
   componentDidMount () {
-    $.get(Config.urls.shuls, (items) => {
-      _.each(items, (item) => {
-        item.pin = this.genPinElem();
-        item.pulse = this.genPulseElem();
-      });
-      $("#map").on('click', (e) => {
-        $(".popover").remove();
-      });
+    window.markerCluster = new window.L.MarkerClusterGroup();
+    shulStore.getAll(function(items) {
       this.setState({items: items, fullList: items});
-    });
+      this.addMarkers();
+    }.bind(this));
   }
 
   render () {
@@ -58,14 +61,14 @@ class FilterList extends React.Component {
       <div className="filter-list">
         <input type="text" placeholder="Search" onChange={ this.filterList.bind(this) }/>
         <ul>
-        {
-          this.state.items.map(function(item) {
-          return (
-            <List key={item.id} item={ item } />
-            );
-          })
-        }
-      </ul>
+          {
+            this.state.items.map(function(item) {
+              return (
+                <List key={item.id} item={ item } />
+                );
+            })
+          }
+        </ul>
       </div>
     );
   }
