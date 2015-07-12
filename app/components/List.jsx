@@ -10,27 +10,17 @@ export default class List extends React.Component {
     this.state = {};
   }
 
-  addMarker () {
-    var item = this.props.item;
-    var marker = item.marker.addTo(window.map);
-  }
-
-  componentDidUpdate () {
-    //this.addMarker();
-  }
-
-  componentDidMount () {
-    //this.addMarker();
-  }
-
   popupElem () {
     var name = this.props.item.name;
     var content = $("<div>", {class: "popup-content", title: name});
     return content;
   }
 
-  showPopup (event) {
-    this.props.item.marker.openPopup();
+  showPopup () {
+    var marker = this.props.item.marker;
+    window.markerCluster.zoomToShowLayer(marker, function() {
+      marker.openPopup();
+    });
   }
 
   scrollTop (e) {
@@ -42,18 +32,18 @@ export default class List extends React.Component {
   }
 
   handleClick (e) {
-    var marker = this.props.item.marker;
-    window.markerCluster.zoomToShowLayer(marker, function() {
-      marker.openPopup();
-    });
-    //this.showPopup(e);
+    this.showPopup(e);
     this.scrollTop(e);
   }
 
   render () {
     var item = this.props.item;
     return (
-      <li className='shul' id={item.id} onClick={this.handleClick.bind(this)} key={item.id} >
+      <li
+        className='shul'
+        id={item.id}
+        onClick={this.handleClick.bind(this)}
+        key={item.id} >
         {item.name}
       </li>
     );
