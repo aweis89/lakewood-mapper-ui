@@ -56,19 +56,25 @@ class FilterList extends React.Component {
     }.bind(this));
   }
 
+  liElements () {
+    var i = 0;
+    var list_elem = this.state.items.map(function(item) {
+      var className = (i === 0) ? 'top' : 'notTop';
+      i++;
+      return <List className={className} key={item.id} item={ item } />;
+    });
+    return list_elem;
+  }
+
   render () {
     return (
       <div className="filter-list">
-        <input type="text" placeholder="Search" onChange={ this.filterList.bind(this) }/>
-        <ul>
-          {
-            this.state.items.map(function(item) {
-              return (
-                <List key={item.id} item={ item } />
-                );
-            })
-          }
-        </ul>
+        <input
+          type="text"
+          placeholder="Search"
+          onChange={ this.filterList.bind(this) }
+        />
+        <ul id="shul-ul"> {this.liElements()} </ul>
       </div>
     );
   }

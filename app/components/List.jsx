@@ -24,11 +24,17 @@ export default class List extends React.Component {
   }
 
   scrollTop (e) {
-    var $box_parent = $(e.target).parent();
-    var top_offset = $box_parent.position().top;
-    $box_parent.parent().animate({
-      'margin-top': 0 - top_offset
-    });
+    //var currentLi = $(e.target);
+    //var position = currentLi.offset().top;
+    //var parent_pos = $('.top').offset().top;
+    //var targetPos = position - parent_pos;
+    //$(".filter-list").scrollTop(Math.abs(targetPos));
+    //$(".top").removeClass('top');
+    //currentLi.addClass('top');
+
+    //console.log(position);
+    //console.log(parent_pos);
+    //console.log(targetPos);
   }
 
   handleClick (e) {
@@ -38,9 +44,10 @@ export default class List extends React.Component {
 
   render () {
     var item = this.props.item;
+    var className = `shul-li ${this.props.className}`;
     return (
       <li
-        className='shul'
+        className={className}
         id={item.id}
         onClick={this.handleClick.bind(this)}
         key={item.id} >
