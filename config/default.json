@@ -1,7 +1,13 @@
 { 
   "urls": {
+    //CDN Provider
     //"shuls": "http://d2unn5wfrpuqwh.cloudfront.net"
-    "shuls": "http://fathomless-oasis-4352.herokuapp.com/shuls.json"
+
+    //Heroku Url
+    //"shuls": "http://fathomless-oasis-4352.herokuapp.com/shuls.json"
+
+
+    "shuls": "http://localhost:3000/shuls.json"
   }
 }
 

@@ -1,4 +1,4 @@
-export default function bingInit (L) {
+export default function(L) {
   L.BingLayer = L.TileLayer.extend({
     options: {
       subdomains: [0, 1, 2, 3],

@@ -1,5 +1,5 @@
-import _ from 'underscore';
-import $ from 'jquery';
+var _ = require('underscore');
+var $ = require('jquery');
 var MarkerImageUrl = "http://www.clker.com/cliparts/N/a/G/A/e/V/map-marker-th.png";
 var ol = window.ol;
 
